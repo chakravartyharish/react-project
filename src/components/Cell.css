@@ -1,0 +1,68 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.1s ease;
+  user-select: none;
+}
+
+.cell.hidden {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+}
+
+.cell.hidden:hover:not(:disabled) {
+  background: #d0d0d0;
+  transform: scale(0.95);
+}
+
+.cell.hidden:active:not(:disabled) {
+  border: 2px inset #c0c0c0;
+  transform: scale(0.9);
+}
+
+.cell.revealed {
+  background: #ffffff;
+  border: 1px solid #808080;
+}
+
+.cell.revealed.safe {
+  background: #ffffff;
+}
+
+.cell.revealed.mine {
+  background: #ff6b6b;
+}
+
+.cell.revealed.mine.exploded {
+  background: #ff4757;
+  animation: explode 0.3s ease-out;
+}
+
+.cell.flagged {
+  background: #c0c0c0;
+}
+
+/* Number colors for mine counts */
+.cell.number-1 { color: #0000ff; }
+.cell.number-2 { color: #008000; }
+.cell.number-3 { color: #ff0000; }
+.cell.number-4 { color: #000080; }
+.cell.number-5 { color: #800000; }
+.cell.number-6 { color: #008080; }
+.cell.number-7 { color: #000000; }
+.cell.number-8 { color: #808080; }
+
+.cell:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes explode {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

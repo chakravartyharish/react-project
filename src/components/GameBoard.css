@@ -1,0 +1,48 @@
+.game-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-board {
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  background: #c0c0c0;
+  border: 4px inset #c0c0c0;
+  border-radius: 8px;
+}
+
+.game-board.won {
+  animation: celebration 0.5s ease-in-out;
+}
+
+.game-board.lost {
+  animation: shake 0.5s ease-in-out;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+@keyframes celebration {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
