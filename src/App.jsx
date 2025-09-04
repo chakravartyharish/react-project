@@ -11,7 +11,7 @@ function App() {
     flagCount: 0,
     firstClick: true,
     rows: 9,
-    cols: 9
+    cols: 9,
   })
 
   const resetGame = useCallback(() => {
@@ -22,11 +22,11 @@ function App() {
       flagCount: 0,
       firstClick: true,
       rows: 9,
-      cols: 9
+      cols: 9,
     })
   }, [])
 
-  const updateGameState = useCallback((updates) => {
+  const updateGameState = useCallback(updates => {
     setGameState(prev => ({ ...prev, ...updates }))
   }, [])
 
@@ -34,16 +34,10 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>🎮 Minesweeper</h1>
-        <GameControls 
-          gameState={gameState} 
-          onReset={resetGame}
-        />
+        <GameControls gameState={gameState} onReset={resetGame} />
       </header>
       <main>
-        <GameBoard 
-          gameState={gameState}
-          updateGameState={updateGameState}
-        />
+        <GameBoard gameState={gameState} updateGameState={updateGameState} />
       </main>
     </div>
   )

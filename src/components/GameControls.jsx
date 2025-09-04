@@ -33,21 +33,17 @@ const GameControls = ({ gameState, onReset }) => {
         <span className="counter-label">Mines:</span>
         <span className="counter-value">{remainingMines}</span>
       </div>
-      
+
       <div className="game-status">
         <div className="status-display">
           <span className="status-emoji">{getStatusEmoji()}</span>
           <span className="status-text">{getStatusText()}</span>
         </div>
-        <button 
-          className="reset-button" 
-          onClick={onReset}
-          title="New Game"
-        >
+        <button className="reset-button" onClick={onReset} title="New Game">
           🔄 New Game
         </button>
       </div>
-      
+
       <div className="flags-counter">
         <span className="counter-label">Flags:</span>
         <span className="counter-value">{flagCount}</span>
