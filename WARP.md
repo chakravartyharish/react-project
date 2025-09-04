@@ -5,11 +5,13 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 ## Development Commands
 
 ### Setup
+
 ```bash
 npm install
 ```
 
 ### Development
+
 ```bash
 npm run dev        # Start development server with hot reload
 npm run build      # Build for production
@@ -17,19 +19,37 @@ npm run preview    # Preview production build locally
 npm run lint       # Run ESLint for code quality checks
 ```
 
-Note: No testing framework is currently configured in this project.
+### Code Quality and Formatting
+
+```bash
+npm run format        # Format code with Prettier
+npm run format:check  # Check if code is properly formatted
+```
+
+### Testing
+
+```bash
+npm run test          # Run tests in watch mode
+npm run test:run      # Run tests once
+npm run test:ui       # Run tests with UI interface
+npm run coverage      # Run tests with coverage report
+```
+
+Note: Testing is now configured with Vitest and React Testing Library.
 
 ## Architecture Overview
 
 This is a React-based Minesweeper game built with Vite. The architecture follows a component-based pattern with centralized state management.
 
 ### Component Hierarchy
+
 - **App.jsx** - Root component managing global game state and orchestrating child components
 - **GameBoard.jsx** - Renders the grid and handles game interactions (click/right-click events)
 - **GameControls.jsx** - Displays game status, mine counter, flag counter, and reset button
 - **Cell.jsx** - Individual cell component with visual states and click handlers
 
 ### Key Directories
+
 - `src/components/` - React components with co-located CSS files
 - `src/utils/` - Pure game logic functions (gameLogic.js)
 
@@ -50,6 +70,7 @@ State is managed centrally in App.jsx using React's `useState` hook. The main ga
 ```
 
 ### State Flow
+
 1. **App** holds master state and provides update functions to children
 2. **GameBoard** handles game logic and user interactions, updating state via callbacks
 3. **GameControls** displays state information and provides reset functionality
@@ -58,6 +79,7 @@ State is managed centrally in App.jsx using React's `useState` hook. The main ga
 ## Core Game Logic (`src/utils/gameLogic.js`)
 
 ### Key Functions
+
 - `createEmptyBoard(rows, cols)` - Initialize empty cell grid
 - `placeMines(board, mineCount, excludeRow, excludeCol)` - Randomly place mines, avoiding first click
 - `revealCell(board, row, col)` - Reveal cell and cascade reveal empty neighbors (flood fill algorithm)
@@ -66,6 +88,7 @@ State is managed centrally in App.jsx using React's `useState` hook. The main ga
 - `toggleFlag(board, row, col)` - Handle right-click flagging
 
 ### Cell State Structure
+
 ```javascript
 {
   isMine: false,
@@ -75,25 +98,56 @@ State is managed centrally in App.jsx using React's `useState` hook. The main ga
 }
 ```
 
+## Development Tools
+
+### Code Quality Tools
+
+- **Prettier** - Automatic code formatting with consistent style
+- **ESLint** - Code linting with React-specific rules and hooks validation
+- **Husky + lint-staged** - Pre-commit hooks that run linting and formatting
+
+### Testing Framework
+
+- **Vitest** - Fast unit testing framework optimized for Vite
+- **React Testing Library** - Testing utilities for React components
+- **jsdom** - DOM implementation for testing environment
+- **@testing-library/jest-dom** - Custom matchers for DOM testing
+
+### Build and Development Plugins
+
+- **@vitejs/plugin-react-swc** - Fast React refresh using SWC compiler
+- **vite-plugin-svgr** - Import SVG files as React components
+- **@vitejs/plugin-legacy** - Legacy browser support with polyfills
+
+### VS Code Integration
+
+- Workspace settings configured for auto-format on save
+- ESLint integration with auto-fix on save
+- Recommended extensions for optimal development experience
+
 ## Technical Details
 
 ### Build System
+
 - **Vite** with React plugin for fast development and optimized builds
 - ES modules with modern JavaScript features
 - Hot module replacement in development
 
 ### React Patterns Used
+
 - Functional components with hooks (`useState`, `useEffect`, `useCallback`)
 - Event delegation for grid interactions
 - Conditional rendering based on game state
 - CSS-in-JS through className functions
 
 ### Game Board Rendering
+
 - Uses CSS Grid for responsive cell layout
 - Dynamic grid template based on board dimensions
 - Cell styling driven by state classes (revealed, flagged, mine, etc.)
 
 ### Event Handling
+
 - Left click: `onCellClick` for revealing cells
 - Right click: `onContextMenu` for flagging (preventDefault to avoid browser menu)
 - Game state guards prevent interactions when game is over
@@ -101,27 +155,32 @@ State is managed centrally in App.jsx using React's `useState` hook. The main ga
 ## Development Tips
 
 ### Modifying Board Size/Difficulty
+
 Update the initial state in App.jsx:
+
 ```javascript
 const [gameState, setGameState] = useState({
   // ... other properties
-  mineCount: 10,  // Adjust mine count
-  rows: 9,        // Board height
-  cols: 9         // Board width
+  mineCount: 10, // Adjust mine count
+  rows: 9, // Board height
+  cols: 9, // Board width
 })
 ```
 
 ### Adding New Game Features
+
 - Game logic functions go in `src/utils/gameLogic.js`
 - UI components go in `src/components/` with co-located CSS
 - Global state changes require updating App.jsx and relevant child components
 
 ### CSS Styling
+
 - Each component has its own CSS file (e.g., `Cell.css`, `GameBoard.css`)
 - Cell appearance uses CSS classes based on game state
 - Number colors and mine/flag emojis defined in CSS
 
 ### Performance Considerations
+
 - Board re-renders are minimized using `useCallback` for state updates
 - Cell components rely on React's diffing for efficient updates
 - Large boards (>20x20) may benefit from virtualization for optimal performance
